@@ -1,0 +1,33 @@
+WELCOME TO README FILE OF OUR CS 101 PROJECT
+LIBRARY MANAGEMENT
+To run the project you need to install codeblocks from http://codeblocks.codecutter.org/ this website .build and run the code.
+Here we have a display of options where we can login into student page , register as a new user and login into librarian page.
+Create a folder and save the code in it .Create a txt file named as librarian.txt   
+  
+Registration : 
+	
+Enter your roll no ,name and your desired password. You  see the file student.txt created in your folder where you can see the details entered by you in it. 
+Student_login: 
+                      Now you can login into student page as a student  and enter your detais roll no and password.
+                       Here you can search books by entering the details like its id, title, author, publications .you can check that a book.txt file is created in your folder.         You can upload the information of as many books as you can and start searching..!!!!
+                     You will get the book information along with number of copies on terminal if the book is present in student.txt .if not you can see that this book is not existing on the terminal.
+Librarian _login:  
+
+	   	  We have to create a user id and password in the librarian.txt which was created by you. 
+To addbook:
+                 After being logged with correct id and password , to add book you have to enter book information like its id ,autor title etc.. details you can see the book gets added to book.txt
+Librarian registration:
+		To register a new librarian just create an id ,name and password ,then this librarian details will get added to the librarian.txt file.
+Student degistration:
+		 To deregister student just enter his roll number  and thus his information will be deleted from student.txt file. Make sure that the roll number you are entering must be in the student.txt…!!
+Delete book:
+		To delete the book just enter its id and it will be deleted from the book.txt. Even in this operation of the function ensure that the book id you entered should be in the book.txt.
+Bookissue:
+		To issue the book to a student you have to enter the id of the student and the book id so that student can get the respective book with the id you have allotted to him.Ensure that the book id and student id are in book.txt and student.txt respectively .You can see a issue.txt file created in the folder with the information of book and student details.
+Returnbook:
+		To return the book just enter the id of the student ,it will be deleted from the issue.txt file .Make sure that the id you entered must be in issue.txt file so that it gets deleted from it.
+
+
+
+
+
