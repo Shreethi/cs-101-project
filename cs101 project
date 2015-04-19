@@ -1,0 +1,665 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+class libraian{
+
+private:
+     string id;
+    string name,p2;
+
+public:
+
+    string psd()
+{
+
+     string p1,p2;
+     cout<<"enter password:";
+     cin>>p1;
+     cout<<"reEnter ur password:";
+     cin>>p2;
+     if(p1==p2){return p2;}
+    else
+        {cout<<"password not matched!!!"<<endl;
+          return psd();}
+    }
+
+   bool fndid(string z)
+{
+    bool x=false;
+    fstream k;
+    k.open("libraian.txt",ios::app|ios::out|ios::in);
+    libraian l3;
+    while(k>>l3.id,k>>l3.name,k>>l3.p2)
+    {
+       if(z==l3.id||z==l3.p2)
+       {
+           x=true;
+       }
+    }
+    k.close();
+    return x;
+}
+
+bool fndpsd(string z)
+{
+    bool x=false;
+    fstream k;
+    k.open("libraian.txt",ios::app|ios::out|ios::in);
+    libraian l3;
+    while(k>>l3.id,k>>l3.name,k>>l3.p2)
+    {
+       if(z==l3.p2)
+       {
+           x=true;
+       }
+    }
+    k.close();
+    return x;
+}
+
+
+
+void lregistration()
+{
+    fstream lfile;
+
+    lfile.open("libraian.txt",ios::app|ios::out);
+
+
+    string id;
+    string name,p2;
+    cout<<"enter ur roll number:";
+    cin>>id;
+    cin.ignore();
+    bool y;
+    y=fndid(id);
+    if(y){cout<<"already exist";}
+    else
+        {
+            cout<<"enter ur name:";
+            getline(cin,name);
+            cin.ignore();
+
+            p2=psd();
+
+            lfile<<id<<"   "<<name<<"   "<<p2<<endl;
+            cout<<"done"<<endl;
+        }
+
+}
+
+
+bool libraian_login()
+{
+    bool q=false;
+    string id,password;
+    cout<<"enter ur id:"; cin>>id;
+    bool d;
+    d=fndid(id) ;
+    if(d)
+    {
+        cout<<endl;
+        cout<<"enter passwor:"; cin>>password;
+        bool f;
+        f=fndpsd(password);
+        if(f){q=true;}
+        else {cout<<"wrong password!!!"<<endl;
+        cout<<endl;
+        cout<<endl;
+          return libraian_login();}
+    }
+
+    return q;
+
+}
+
+void issue()
+ {
+    fstream w;
+    w.open("issued.txt",ios::out|ios::in|ios::app);
+    string sroll,sname,bid,bname;
+    cout<<"enter ROLL NUMBER of student:";
+    cin>>sroll;
+    cin.ignore();
+    cout<<"enter NAME of student:";
+    cin>>sname;
+    cin.ignore();
+    cout<<"enter Book ID:";
+    cin>>bid;
+    cin.ignore();
+    cout<<"enter Book NAME:";
+    cin>>bname;
+    cin.ignore();
+
+    w<<sroll<<" "<<sname<<" "<<bid<<" "<<bname<<endl;
+    w.close();
+    cout<<"BOOK ISSUED."<<endl;
+ }
+
+ void breturn()
+{
+
+
+     fstream q;
+     fstream t; // temp file for input of every student except the one user wants to delete
+     q.open("issued.txt",ios::out|ios::in|ios::app);
+     t.open("temp.txt",ios::out|ios::in|ios::app);
+
+    string sroll,sname,bid,bname,troll;
+    cout<<"enter ur ROLL NUMBER:";
+    cin>>troll;
+     while(q>>sroll,q>>sname,q>>bid,q>>bname)
+    {
+       if(troll!=sroll)
+       {
+          t<<sroll<<" "<<sname<<" "<<bid<<" "<<bname<<endl;
+       }
+    }
+
+
+
+
+    q.clear();// clear eof and fail bits
+    q.seekg(0, ios::beg);
+    q.close();
+    t.close();
+    remove("issued.txt");
+    rename("temp.txt","issued.txt");
+     cout<<"BOOK RETURNED."<<endl;
+}
+};
+
+class student{
+private:
+    string rollno;
+    string name,p2;
+
+
+public:
+
+string psd()
+{
+
+     string p1,p2;
+     cout<<"enter password:";
+     cin>>p1;
+     cout<<"reEnter ur password:";
+     cin>>p2;
+     if(p1==p2){return p2;}
+    else
+        {cout<<"password not matched!!!"<<endl;
+          return psd();}
+    }
+
+
+bool fndroll(string z)
+{
+    bool x=false;
+    fstream k;
+    k.open("student.txt",ios::app|ios::out|ios::in);
+    student s3;
+    while(k>>s3.rollno,k>>s3.name,k>>s3.p2)
+    {
+       if(z==s3.rollno)
+       {
+           x=true;
+       }
+    }
+    k.close();
+    return x;
+}
+
+bool fndpsd(string z)
+{
+    bool x=false;
+    fstream k;
+    k.open("student.txt",ios::app|ios::out|ios::in);
+    student s3;
+    while(k>>s3.rollno,k>>s3.name,k>>s3.p2)
+    {
+       if(z==s3.p2)
+       {
+           x=true;
+       }
+    }
+    k.close();
+    return x;
+}
+
+
+void registration()
+{
+    student s;
+    fstream myfile;
+
+    myfile.open("student.txt",ios::app|ios::out|ios::in);
+
+
+    cout<<"enter ur roll number:";
+    cin>>s.rollno;
+    cin.ignore();
+    bool y;
+    y=fndroll(s.rollno);
+    if(y){cout<<"already exist";}
+    else
+        {
+            cout<<"enter ur name:";
+            getline(cin,s.name);
+            cin.ignore();
+
+            s.p2=psd();
+
+            myfile<<s.rollno<<"   "<<s.name<<"   "<<s.p2<<endl;
+            cout<<"done"<<endl;
+        }
+
+}
+
+
+
+bool student_login()
+{
+    bool q=false;
+    student s1;
+    cout<<"enter ur rollno:"; cin>>s1.rollno;
+    bool d;
+    d=fndroll(s1.rollno) ;
+    if(d)
+    {
+        cout<<"enter password:"; cin>>s1.p2;
+        bool f=false;
+        f=fndpsd(s1.p2);
+        if(f){q=true;}
+        else {cout<<"wrong password!!!"<<endl;  return student_login();}
+    }
+
+    return q;
+
+}
+
+void deletestudentdata()
+{
+    student s2;
+    int x=0; // x - "counter" to check if user entered wrong name
+    string tname;
+
+
+
+    ifstream f("student.txt");
+    ofstream temp("temp2.txt"); // temp file for input of every student except the one user wants to delete
+
+
+    cin >> tname;
+
+
+    while( f>> s2.rollno >>s2.name >>s2.p2)
+    {
+        if(tname!=s2.rollno){
+            temp <<s2.rollno<<" "<<s2.name<<" "<<s2.p2<< endl;
+        }
+        if(tname==s2.rollno){
+            x=1;
+        }
+    }
+    f.clear(); // clear eof and fail bits
+    f.seekg(0, ios::beg);
+    f.close();
+    temp.close();
+    remove("student.txt");
+    rename("temp2.txt","student.txt");
+    if(x==0) // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
+        {
+        cout << "There is no student with this ROLL NUMBER." << endl;
+        }
+    else{ // x is not 0, it means user entered the correct name, print message that students data has been deleted
+        cout << "Student data has been deleted." << endl;
+    }
+}
+
+
+};
+
+class book{
+
+private:
+    string bookid;
+    string name,author,publication;
+
+public:
+
+
+ void addbook()
+ {
+    book b;
+    fstream bk;
+    bk.open("book.txt",ios::in|ios::out|ios::app);
+
+    cout<<"enter book id:";
+    cin>>b.bookid;
+    cin.ignore();
+    cout<<"enter book name:";
+    getline(cin,b.name);
+    cin.ignore();
+    cout<<"enter author name:";
+    getline(cin,b.author);
+    cin.ignore();
+    cout<<"enter book publication:";
+    getline(cin,b.publication);
+    cin.ignore();
+    bk<<b.bookid<<" "<<b.name<<" "<<b.author<<" "<<b.publication<<endl;
+    cout<<"book added"<<endl;
+    bk.close();
+ }
+
+void srh()
+ {
+    string line;
+    string Search;
+
+    fstream f;
+    f.open( "book.txt",ios::app|ios::in|ios::out);
+    book b;
+
+    cin>>Search;
+
+    if(f.is_open())
+    {
+        while(f>>b.bookid,f>>b.name,f>>b.author,f>>b.publication)
+        {
+            if(b.name==Search||b.bookid==Search||b.author==Search||b.publication==Search)
+            {
+                cout<<b.bookid<<" "<<b.name<<" "<<b.author<<" "<<b.publication<<endl;
+                break;
+            }
+        }
+    }
+    else {cout<<"could not open file"<<endl;}
+ }
+
+
+  void deletebookdata(string s)
+{
+    book b1;
+    int x=0; // x - "counter" to check if user entered wrong name
+    string tname=s;
+
+
+
+    ifstream f("book.txt");
+    ofstream temp("temp.txt"); // temp file for input of every student except the one user wants to delete
+
+
+    //cin >> tname;
+
+
+    while( f>> b1.bookid ,f>>b1.name,f >> b1.author,f>>b1.publication)
+    {
+        if(tname!=b1.name&&tname!=b1.bookid)
+            {
+            temp <<b1.bookid<<" "<<b1.name<<" "<<b1.author<<" "<<b1.publication<< endl;
+            }
+        if(tname==b1.bookid&&tname==b1.name)
+            {
+             }
+    }
+    f.clear();// clear eof and fail bits
+    f.seekg(0, ios::beg);
+    f.close();
+    temp.close();
+    remove("book.txt");
+    rename("temp.txt","book.txt");
+    if(x==0) // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
+        {
+        cout << "There is no book  you entered." << endl;
+        }
+    else{ // x is not 0, it means user entered the correct name, print message that students data has been deleted
+        cout << "BOOK has been deleted." << endl;
+        }
+}
+
+
+
+};
+
+int main()
+{
+
+    student s;
+    libraian l;
+    book b;
+
+    int q;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<"***********WELCOME TO IITB LIBRARY***********"<<endl;
+    cout<<endl;
+    cout<<"         1 for student login."<<endl;
+    cout<<"         2 for library staff login."<<endl;
+    cout<<"         3 for student registration."<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<"             Enter ur choice:";
+    cin>>q;
+
+    if(q==1)
+    {
+        cout<<"******  STUDENT LOGIN  ******"<<endl;
+
+        bool l;
+        l=s.student_login();
+
+        if(l==true)
+        {
+            char ans='y';
+        while(ans=='y')
+        {
+
+            int j;
+            cout<<endl;
+            cout<<endl;
+            cout<<endl;
+
+            cout<<"         1 for search book by ID."<<endl;
+            cout<<"         2 for search book by NAME."<<endl;
+            cout<<"         3 for search book by AUTHOR NAME."<<endl;
+            cout<<"         4 for search book by PUBLICATION"<<endl;
+            cout<<endl;
+            cout<<endl;
+
+            cout<<"                 enter ur choice:";
+
+            cin>>j;
+
+
+
+            if(j==1)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"type the ID you want to search:";
+                b.srh();
+            }
+            if(j==2)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"type the NAME you want to search:";
+                b.srh();
+
+            if(j==3)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"type the AUTHOR you want to search:";
+                b.srh();
+            }
+            if(j==4)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"type the PUBLICATION you want to search:";
+                b.srh();
+            }
+
+
+
+
+            cout<<endl;
+            cout<<endl;
+            cout<<endl;
+             cout<<"enter 'y' for continue and n for logout:";
+            cin>>ans;
+            if(ans=='n')
+            {
+               main();
+            }
+
+        }
+        }
+        }
+        else
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+
+                cout<<"wrong ROLL NUMBER !!!!"<<endl;
+                main();
+            }
+
+    }
+
+
+
+    if(q==2)
+    {
+        bool g;
+        g=l.libraian_login();
+
+        if(g==true)
+        {
+            //char ans='y';
+           while(true)
+           {
+            int i;
+
+            cout<<endl;
+            cout<<endl;
+            cout<<endl;
+
+            cout<<"1 for addition of book."<<endl;
+            cout<<"2 for register library staff."<<endl;
+            cout<<"3 for DELETE BOOK by ID."<<endl;
+            cout<<"4 for DELETE BOOK by NAME."<<endl;
+            cout<<"5 for Deregister STUDENT by ROLL NUMBER."<<endl;
+            cout<<"6 for ISSUING BOOK."<<endl;
+            cout<<"7 for RETURN ISSUED BOOK."<<endl;
+            cout<<"8 for Editing book data. "<<endl;
+            cout<<"9 for LOGOUT."<<endl;
+            cout<<"10 for CLOSE APPLICATION"<<endl;
+
+            cout<<"enter ur choice:";
+            cin>>i;
+
+            if(i==1)
+            {
+                b.addbook();
+            }
+
+            if(i==2)
+            {
+                l.lregistration();
+            }
+
+            if(i==3)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"-------------------------------------------------------------------\n\n";
+
+                cout << "Enter ID of the BOOK you want to DELETE :";
+                string p;
+                cin>>p;
+
+                b.deletebookdata(p);
+             }
+
+
+            if(i==4)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+                cout<<"-------------------------------- -----------------------------------\n\n";
+
+                cout << "Enter NAME of the BOOK you want to DELETE :";
+                string q;
+                cin>>q;
+                b.deletebookdata(q);
+             }
+
+            if(i==5)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<endl;
+              cout<<"-------------------------------------------------------------------\n\n";
+
+                cout << "Enter ROLL NUMBER of student you want to DEregister :";
+                s.deletestudentdata();
+
+            }
+
+            if(i==6)
+            {
+                l.issue();
+            }
+
+            if(i==7)
+            {
+                l.breturn();
+            }
+
+            if(i==8)
+            {
+                cout<<"enter the book id to be edited";
+                string m;
+                cin>>m;
+                b.deletebookdata(m);
+                b.addbook();
+            }
+
+            if(i==9)
+            {
+                main();
+            }
+            if(i==10)
+            {
+             return 0;
+            }
+
+
+
+        }
+        }
+    }
+
+
+    if(q==3)
+    {
+        s.registration();
+        cout<<endl;
+         cout<<endl;
+        main();
+    }
+
+}
